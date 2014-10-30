@@ -4,7 +4,7 @@ decimal_context = Context(prec=15, rounding=UP) # sets conditions for the decima
 setcontext(decimal_context)		# sets alternate context besides extended or 
 								# basic context, which is defined on line 3
 
-print 'Welcome!'		welcome statement 
+print 'Welcome!'		
 print 'When finished, type done to close the program.'
 
 def welcome(): 			# main loop, function call at bottom
