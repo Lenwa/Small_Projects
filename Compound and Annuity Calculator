@@ -1,8 +1,5 @@
 from decimal import *
 
-print 'Welcome!'		# welcome statement, only shows once
-print 'When finished, type done to close the program.\n'
-
 
 def comp_interest():
     print 'Enter amount to be compounded.'
