@@ -16,7 +16,7 @@ def comp_interest():
     result = Decimal(result)
     print 'If you start with ${0} and invest at a {1}% intrest rate over {2}\
     years, you will have:' .format(start_amount, inter_rate, years)
-    print '$' + str(result)  # allows string concatenation
+    print '$ {:f}'  .format(Decimal(result)) 
 
 
 def annuity():
@@ -37,7 +37,7 @@ def annuity():
     result = Decimal(result)
     print "If you contribute ${0} every {1} at {2}% interest over {3} years\
     you will have:" .format(A, a, inter_rate, t)
-    print '$' + str(result)  # allows string concatenation
+    print '$ {:f}'  (Decimal(result))
 
 
 print 'Welcome!'		# welcome statement, only shows once
