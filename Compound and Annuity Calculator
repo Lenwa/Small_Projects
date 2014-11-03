@@ -1,82 +1,62 @@
 from decimal import *
 
- # sets conditions for the decimal module
-decimal_context = Context(prec=15, rounding=ROUND_HALF_DOWN) 
-setcontext(decimal_context)		# sets alternate context besides extended or 
-								# basic context, which is defined on line 3
-
-print 'Welcome!'		# welcome statement, only shows once 
+print 'Welcome!'		# welcome statement, only shows once
 print 'When finished, type done to close the program.\n'
 
-def welcome(): 			# main loop, function call at bottom
-	while True: 		
-		print 'Would you like to calculate compounded interest or annuity?'
-		print 'Type "c" to calculate compound interest.'
-		print 'Or type "a" to calculate annuity interest.'		
-		inter_annuity = raw_input('> ')		
-		if inter_annuity == 'c':
-			comp_interest()
-		elif inter_annuity == 'a':
-			annuity()
-		elif inter_annuity == 'done':
-			print 'Goodbye!'
-			exit()
-		elif inter_annuity != 'c' or 'a' or 'done':
-			print "I'm sorry, my function is limited."
-			
 
-	
 def comp_interest():
-	print 'Enter amount to be compounded.' 
-	start_amount = Decimal(raw_input("> ")) # initial amount to be invested
-	
-	print 'Enter interest rate, such as 4.3 or 2.5.' 
-	inter_rate = Decimal(raw_input('> '))
-	
-	print 'Enter how often interest is paid. Daily would be 365,'
-	print 'monthly would be 12, quarterly 4, and so on.'
-	comp_period = Decimal(raw_input('> '))
-	
-	print 'Enter, in years, how long the amount will be compounded.'
-	years = Decimal(raw_input('> '))
-	
-	ir1 = inter_rate / 100
-	result = start_amount * (1 + (ir1 / comp_period)) ** (comp_period * years)
-	
-	result = Decimal(result)
-	
-	print 'If you start with ${0} and invest at a {1}% intrest rate over {2}\
-	years, you will have:' .format(start_amount, inter_rate, years) 
-	print '$' + str(result) # allows string concatenation 
+    print 'Enter amount to be compounded.'
+    start_amount = Decimal(raw_input("> "))  # initial amount to be invested
+    print 'Enter interest rate, such as 4.3 or 2.5.'
+    inter_rate = Decimal(raw_input('> '))
+    print 'Enter how often interest is paid. Daily would be 365,'
+    print 'monthly would be 12, quarterly 4, and so on.'
+    comp_period = Decimal(raw_input('> '))
+    print 'Enter, in years, how long the amount will be compounded.'
+    years = Decimal(raw_input('> '))
+    ir1 = inter_rate / 100
+    result = start_amount * (1 + (ir1 / comp_period)) ** (comp_period * years)
+    result = Decimal(result)
+    print 'If you start with ${0} and invest at a {1}% intrest rate over {2}\
+    years, you will have:' .format(start_amount, inter_rate, years)
+    print '$' + str(result)  # allows string concatenation
 
 
 def annuity():
-	print 'Enter the amount to be contributed.\n'
-	A = Decimal(raw_input('> ')) # how much is contributed each time i.e. $25
-	
-	print 'Enter how often you will contribute to your investment.'
-	a = Decimal(raw_input('>')) # how often contributions are made
-	
-	print 'Enter the interest rate, such as 3.4 or 1.2.\n' 
-	inter_rate = Decimal(raw_input('> ')) # interest rate
-	
-	print 'Enter how often interest is paid. If paid daily, enter 365.'
-	print 'If paid annually enter 1, quarterly would be 4, and so on.'
-	cp = int(raw_input('> ')) # compounding period
-	
-	print 'Enter, in years, how long this money will be invested.'
-	t = int(raw_input('> ')) # years money will be compounded over
-	
-	ir1 = inter_rate / 100 
-	
-	result = A * (a / ir1) * ((1 + (ir1 / cp)) ** (cp * t) - 1)
-	with localcontext() as decimal_context:
-		decimal_context.prec = 2
-	result = Decimal(result)
-	
-	print "If you contribute ${0} every {1} at {2}% interest over {3} years\
-	you will have:" .format(A, a, inter_rate, t)
-	print '$' + str(result) # allows string concatenation 
-	
-welcome() #main loop call
+    print 'Enter the amount to be contributed.'
+    A = Decimal(raw_input('> '))  # how much is contributed each time i.e. $25
+    print 'Enter how often you will contribute to your investment.'
+    a = Decimal(raw_input('>'))  # how often contributions are made
+    print 'Enter the interest rate, such as 3.4 or 1.2.'
+    inter_rate = Decimal(raw_input('> '))  # interest rate
+    print 'Enter how often interest is paid. If paid daily, enter 365.'
+    print 'If paid annually enter 1, quarterly would be 4, and so on.'
+    cp = int(raw_input('> '))  # compounding period
+    print 'Enter, in years, how long this money will be invested.'
+    t = int(raw_input('> '))  # years money will be compounded over
+    ir1 = inter_rate / 100
+    result = A * (a / ir1) * ((1 + ir1 / cp) ** (cp * t)) - 1
+    print result
+    result = Decimal(result)
+    print "If you contribute ${0} every {1} at {2}% interest over {3} years\
+    you will have:" .format(A, a, inter_rate, t)
+    print '$' + str(result)  # allows string concatenation
+
+
+print 'Welcome!'		# welcome statement, only shows once
+print 'When finished, type done to close the program.\n'
+while True:
+    print 'Would you like to calculate compounded interest or annuity?'
+    print 'Type "c" to calculate compound interest.'
+    print 'Or type "a" to calculate annuity interest.'
+    inter_annuity = raw_input('> ')
+    if inter_annuity == 'c':
+        comp_interest()
+    elif inter_annuity == 'a':
+        annuity()
+    elif inter_annuity == 'done':
+        print 'Goodbye!'
+        exit()
+    elif inter_annuity != 'c' or 'a' or 'done':
+        print "I'm sorry, my function is limited."
 
