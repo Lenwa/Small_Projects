@@ -1,6 +1,15 @@
 from decimal import *
 
 
+comp_period_dict = {'1': 'annually',
+                    '4': 'quarterly',
+                    '365': 'daily',
+                    '12': 'monthly',
+                    '2': 'semi-annually',
+                    '52': 'weekly',
+                    '26': 'biweekly'}
+
+
 def comp_interest():
     print 'Enter amount to be compounded.'
     start_amount = Decimal(raw_input("> "))  # initial amount to be invested
@@ -8,45 +17,46 @@ def comp_interest():
     inter_rate = Decimal(raw_input('> '))
     print 'Enter how often interest is paid. Daily would be 365,'
     print 'monthly would be 12, quarterly 4, and so on.'
-    comp_period = Decimal(raw_input('> '))
+    cp = Decimal(raw_input('> '))  # compounding period
     print 'Enter, in years, how long the amount will be compounded.'
     years = Decimal(raw_input('> '))
     ir1 = inter_rate / 100
-    result = start_amount * (1 + (ir1 / comp_period)) ** (comp_period * years)
+    result = start_amount * (1 + (ir1 / cp)) ** (comp_period * years)
     result = Decimal(result)
-    print 'If you start with ${0} and invest at a {1}% intrest rate over {2}\
+    print 'If you start with ${0} and invest at a {1}% interest rate over {2}\
     years, you will have:' .format(start_amount, inter_rate, years)
-    print '$ {:f}'  .format(Decimal(result)) 
+    print '$' + format(result, '.2f')
 
 
 def annuity():
     print 'Enter the amount to be contributed.'
-    A = Decimal(raw_input('> '))  # how much is contributed each time i.e. $25
+    recur = Decimal(raw_input('> '))  # how much is contributed each time i.e. $25
     print 'Enter how often you will contribute to your investment.'
     a = Decimal(raw_input('>'))  # how often contributions are made
     print 'Enter the interest rate, such as 3.4 or 1.2.'
     inter_rate = Decimal(raw_input('> '))  # interest rate
     print 'Enter how often interest is paid. If paid daily, enter 365.'
     print 'If paid annually enter 1, quarterly would be 4, and so on.'
-    cp = int(raw_input('> '))  # compounding period
+    cp = Decimal(raw_input('> '))  # compounding period
     print 'Enter, in years, how long this money will be invested.'
-    t = int(raw_input('> '))  # years money will be compounded over
+    t = Decimal(raw_input('> '))  # years money will be compounded over
     ir1 = inter_rate / 100
-    result = A * (a / ir1) * ((1 + ir1 / cp) ** (cp * t)) - 1
-    print result
-    result = Decimal(result)
-    print "If you contribute ${0} every {1} at {2}% interest over {3} years\
-    you will have:" .format(A, a, inter_rate, t)
-    print '$ {:f}'  (Decimal(result))
+    result = recur * (a / ir1) * ((1 + ir1 / cp) ** (cp * t)) - 1
+    a = str(a)
+    if a in comp_period_dict:
+        a1 = comp_period_dict[a]
+    print 'If you contribute ${0} {1} at {2}% interest over {3} years\
+    you will have:'.format(recur, a1, inter_rate, t)
+    print '$' + format(result, '.2f')
 
 
 print 'Welcome!'		# welcome statement, only shows once
-print 'When finished, type done to close the program.\n'
+print 'When finished, type done to close the program.'
 while True:
     print 'Would you like to calculate compounded interest or annuity?'
     print 'Type "c" to calculate compound interest.'
     print 'Or type "a" to calculate annuity interest.'
-    inter_annuity = raw_input('> ')
+    inter_annuity = raw_input('> ').lower()
     if inter_annuity == 'c':
         comp_interest()
     elif inter_annuity == 'a':
@@ -54,6 +64,6 @@ while True:
     elif inter_annuity == 'done':
         print 'Goodbye!'
         exit()
-    elif inter_annuity != 'c' or 'a' or 'done':
+    else:
         print "I'm sorry, my function is limited."
 
