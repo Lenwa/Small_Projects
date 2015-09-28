@@ -1,0 +1,90 @@
+import javax.swing.*;
+import java.text.DecimalFormat;
+import java.awt.*;
+import java.awt.event.*;
+
+
+public class Calculator {     
+      
+public static void main(String[] args) {
+      
+      //creates JFrame
+      JFrame gradeCalc = new JFrame("Calculate Your Grade!");
+      
+      //if you want the frame to be visible most set true
+      gradeCalc.setVisible(true);
+      
+      //set size of the frame
+      gradeCalc.setSize(300, 100);
+      
+      //centers the jframe in the center of the monitor/screen
+      gradeCalc.setLocationRelativeTo(null);
+      
+      //closes the program when the red x is clicked
+      gradeCalc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      
+      //creates Jpane
+      JPanel panel = new JPanel();
+      
+      //sets panel background color
+      panel.setBackground(Color.YELLOW);
+      
+      //adds JPanel to the JFrame
+      gradeCalc.add(panel);
+      
+      //creates new label
+      JLabel label = new JLabel("Click here to calculate your grade");
+      
+      //this essentially sets the label's text color
+      label.setForeground(Color.BLACK);
+      
+      //adds the label to the panel
+      panel.add(label);
+      
+      //create new button
+      JButton button = new JButton("Click");   
+      
+      //adds the button to the JPanel, which is attached to the JFrame
+      panel.add(button);
+      
+      //adds ActionListner to the button, arguement calls the class defined as 
+      //Action, whcih contain the instructions to be executed when pressed
+      button.addActionListener(new Action());
+      
+}
+      //instructions that are called on when the button that you assign it to is 
+      //clicked
+      static class Action implements ActionListener {
+          
+          public void actionPerformed (ActionEvent e){
+              DecimalFormat grade = new DecimalFormat("###.00");
+              
+              //declare variables
+              String firstNumber, secondNumber; 
+              double num1, num2, sum1;
+               
+               //asks for number of points earned, stores in 
+               //variable firstNumber
+               firstNumber = JOptionPane.showInputDialog(null, "Enter the "
+                      + "number of points you earned", "Please enter a number");
+               
+               //asks for total possible points
+               secondNumber = JOptionPane.showInputDialog(null, "Enter total "
+                       + "possible points", "Please enter a number");
+               
+               //convert String input into doubles
+               num1 = Double.parseDouble(firstNumber);
+               num2 = Double.parseDouble(secondNumber);
+               
+               //divides PE by PP, times 100 for percentage
+               sum1 = num1 / num2;
+               sum1 = sum1 * 100;
+               
+               //displays grade point percentage 
+               JOptionPane.showMessageDialog(null, "Your grade percentage is " + 
+                                   grade.format(sum1) + "%");
+        }
+    }
+}      
+      
+
