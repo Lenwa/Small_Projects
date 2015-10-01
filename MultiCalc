@@ -3,33 +3,39 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 
-public class Calculator {
+public class multiCalc {
     
     public static void main(String[] args) {
         JFrame frame1 = new JFrame("Various Calculators");
         frame1.setVisible(true);
         frame1.setLocationRelativeTo(null);
-        frame1.setSize(300,300);
+        frame1.setSize(350,200);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JPanel panel1 = new JPanel();
-        panel1.setBackground(Color.BLACK);
-        panel1.add(frame1);
+        panel1.setBackground(Color.ORANGE);
+        panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
         
-        JLabel  label1 = new JLabel("Click here to calculate your grade");
-        JLabel  label2 = new JLabel("Click here to calculate compound interest");
-        label1.add(panel1);
-        label2.add(panel1);
+        frame1.add(panel1);
+        
+        JLabel  label1 = new JLabel("Calculate your grade or compund interest");
+        panel1.add(label1);
         
         JButton button1 = new JButton("Grade");
         button1.addActionListener(new Action1());
+        button1.setAlignmentX((panel1.CENTER_ALIGNMENT));
+        
         JButton button2 = new JButton("Com. Int.");
         button2.addActionListener(new Action2());
+        button2.setAlignmentX(panel1.CENTER_ALIGNMENT);
+        
+        panel1.add(button1);
+        panel1.add(button2);
     }
         static class Action1 implements ActionListener {
             
             public void actionPerformed (ActionEvent evt1){
-                  DecimalFormat grade = new DecimalFormat("###.00");
+              DecimalFormat grade = new DecimalFormat("###.00");
               
               //declare variables
               String firstNumber, secondNumber; 
@@ -55,6 +61,40 @@ public class Calculator {
                //displays grade point percentage 
                JOptionPane.showMessageDialog(null, "Your grade percentage is " + 
                                    grade.format(sum1) + "%");
+            }
         }
-    }              
-}
+    
+
+        
+        static class Action2 implements ActionListener {
+            public void actionPerformed (ActionEvent evt2) {
+                DecimalFormat invest = new DecimalFormat("$###,###,###.00");
+                String startAmount, interRate, years, compPeriod;
+                
+                double ir1, sa, yrs, ir, cp;                
+               
+                startAmount = JOptionPane.showInputDialog(null, "How much money"
+                        + "is being invested?", "2500 as an example");
+                interRate = JOptionPane.showInputDialog(null, "At what interest"
+                        + "rate is this money being invested?", "4.3 or 2.1");
+                years = JOptionPane.showInputDialog(null, "Over how many "
+                        + "years is this being invested?", " 1, 5, 10, etc.");
+                compPeriod = JOptionPane.showInputDialog(null,"How often is "
+                        + "interest paid?", "If daily enter 365, monthly 12, "
+                                + "quarterly would be 4, etc.");
+                
+                yrs = Double.parseDouble(years);
+                ir = Double.parseDouble(interRate);
+                cp = Double.parseDouble(compPeriod);
+                sa = Double.parseDouble(startAmount);
+       
+                ir1 = ir / 100; 
+                double x = Math.pow(1 + (ir1 / cp), cp * yrs);
+                double result = sa * x;
+                
+                JOptionPane.showMessageDialog(null, "Your total is " +
+                        invest.format(result));
+
+            }
+        }
+    }
